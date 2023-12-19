@@ -87,7 +87,10 @@ const handleCorrectGuess = (letter) => {
 
 const handleWrongGuess = () => {
   numWrong += 1;
-  // Replace this with your code
+  // if numWrong is 5, disable all buttons and
+  // show the hidden a eement (id='play-again')
+
+  // otherwise increment numWrong and update the image
 };
 
 //  Reset game state. Called before restarting the game.
@@ -99,16 +102,72 @@ const resetGame = () => {
 //
 function startGame() {
   // For now, we'll hardcode the word that the user has to guess.
-  const word = 'hello';
+  const word = 
 
+
+
+  
   createDivsForChars(word);
   generateLetterButtons();
 
+  const isClicked = false;
+  //event listener 
+  
+  // button.addEventListener('click', () => {
+  //   const letter = button.innerHTML; 
+
   for (const button of document.querySelectorAll('button')) {
+    button.addEventListener('click', (evt) => {
+      const letter = evt.target.innerHTML;
+      if (isLetterInWord(letter)) {
+        handleCorrectGuess(letter, word);
+        disableLetterButton(letter); 
+  
     // add an event handler to handle clicking on a letter button
-    // YOUR CODE HERE
+    
+      // handleCorrectGuess has the func. disablebutton 
+
+    } else if {
+    (isLetterInWord == false) 
+    handleWrongGuess()
+    disableLetterButton() 
+    }
+    // if letter correct then
+    // handleCorrectGuess
+    // else
+    // handleWrongGuess
   }
 
+
+
+  
   // add an event handler to handle clicking on the Play Again button
   // YOUR CODE HERE
 })();
+
+
+
+// (function startGame() {
+//   // Math.random() gives us a random number between 0 and 1
+//   // we multiply it by the length of the list to get a random
+//   // index in the list and then round down since it may be a decimal
+//   const word = WORDS[Math.floor(Math.random() * WORDS.length)]; (giving number in range)
+//   createDivsForChars(word);
+//   generateLetterButtons();
+
+//   const buttons = document.querySelectorAll('button');
+
+//   for (const button of buttons) {
+//     button.addEventListener('click', (evt) => {
+//       const clickedBtn = evt.target; // you can also use button to access this element
+//       disableLetterButton(clickedBtn);
+
+//       const letter = clickedBtn.innerHTML;
+
+//       if (isLetterInWord(letter)) {
+//         handleCorrectGuess(letter, word);
+//       } else {
+//         handleWrongGuess();
+//       }
+//     }); 
+//   }
