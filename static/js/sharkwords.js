@@ -54,8 +54,8 @@ const handleCorrectGuess = (letter) => {
   // Replace this with your code
   // our const word (correct word) is 'hello
   const letterDivs = document.querySelectorAll(`div.${letter}`);
-    for (let ltr in word) {
-      ltr.innerHTML = letter;
+    for (const div of letterDivs) {
+      div.innerHTML = letter;
       correctGuesses += 1;
     }
 
@@ -65,10 +65,10 @@ const handleCorrectGuess = (letter) => {
       const allButton = document.querySelectorAll('#letter-buttons')
       for (const button in allButton) {
         disableLetterButton(button);
-        
+        document.querySelector('#win').style.display = 'block';
       }
       // showing the element win
-      document.querySelector('#win').style.display = '';
+      
       //end the game
       // document.querySelectorAll('#letter-buttons')
     }
@@ -88,10 +88,17 @@ const handleCorrectGuess = (letter) => {
 const handleWrongGuess = () => {
   numWrong += 1;
   // if numWrong is 5, disable all buttons and
-  // show the hidden a eement (id='play-again')
+  // show the hidden a element the one with (id='play-again')
+  if (numWrong === 5) {
+    disableAllLetterButtons();
+    document.querySelector('#play-again').style.display = '';
+  } 
+    // .querySelector('#shark-img img')
+    const sharkPhoto = document.querySelector('#shark-img img');
 
+    sharkPhoto.setAttribute('src', `/static/images/guess${numWrong}.png`);
+  };
   // otherwise increment numWrong and update the image
-};
 
 //  Reset game state. Called before restarting the game.
 const resetGame = () => {
@@ -100,74 +107,36 @@ const resetGame = () => {
 
 // This is like if __name__ == '__main__' in Python
 //
-function startGame() {
+(function startGame() {
+  // // Math.random() gives us a random number between 0 and 1
+  // // we multiply it by the length of the list to get a random
+  // // index in the list and then round down since it may be a decimal
+  // const word = WORDS[Math.floor(Math.random() * WORDS.length)];
+
+  const word = 'hello';
   // For now, we'll hardcode the word that the user has to guess.
-  const word = 
 
-
-
-  
   createDivsForChars(word);
   generateLetterButtons();
 
-  const isClicked = false;
-  //event listener 
-  
-  // button.addEventListener('click', () => {
-  //   const letter = button.innerHTML; 
+  const buttons = document.querySelectorAll('button');
 
-  for (const button of document.querySelectorAll('button')) {
+  // add an event handler to handle clicking on a letter button
+  for (const button of buttons) {
     button.addEventListener('click', (evt) => {
-      const letter = evt.target.innerHTML;
+      const clickedBtn = evt.target; // you can also use button to access this element
+      disableLetterButton(clickedBtn);
+
+      const letter = clickedBtn.innerHTML;
+
       if (isLetterInWord(letter)) {
         handleCorrectGuess(letter, word);
-        disableLetterButton(letter); 
-  
-    // add an event handler to handle clicking on a letter button
-    
-      // handleCorrectGuess has the func. disablebutton 
-
-    } else if {
-    (isLetterInWord == false) 
-    handleWrongGuess()
-    disableLetterButton() 
-    }
-    // if letter correct then
-    // handleCorrectGuess
-    // else
-    // handleWrongGuess
+      } else {
+        handleWrongGuess();
+      }
+    });
   }
 
-
-
-  
-  // add an event handler to handle clicking on the Play Again button
-  // YOUR CODE HERE
+  document.querySelector('#play-again').addEventListener('click', resetGame);
+  document.querySelector('#win').addEventListener('click', resetGame);
 })();
-
-
-
-// (function startGame() {
-//   // Math.random() gives us a random number between 0 and 1
-//   // we multiply it by the length of the list to get a random
-//   // index in the list and then round down since it may be a decimal
-//   const word = WORDS[Math.floor(Math.random() * WORDS.length)]; (giving number in range)
-//   createDivsForChars(word);
-//   generateLetterButtons();
-
-//   const buttons = document.querySelectorAll('button');
-
-//   for (const button of buttons) {
-//     button.addEventListener('click', (evt) => {
-//       const clickedBtn = evt.target; // you can also use button to access this element
-//       disableLetterButton(clickedBtn);
-
-//       const letter = clickedBtn.innerHTML;
-
-//       if (isLetterInWord(letter)) {
-//         handleCorrectGuess(letter, word);
-//       } else {
-//         handleWrongGuess();
-//       }
-//     }); 
-//   }
