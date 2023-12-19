@@ -15,6 +15,7 @@ const WORDS = [
 ];
 
 let numWrong = 0;
+let correctGuesses = 0;
 
 // Loop over the chars in `word` and create divs.
 //
@@ -51,7 +52,31 @@ const isLetterInWord = (letter) => document.querySelector(`div.${letter}`) !== n
 //
 const handleCorrectGuess = (letter) => {
   // Replace this with your code
-};
+  // our const word (correct word) is 'hello
+  const letterDivs = document.querySelectorAll(`div.${letter}`);
+    for (let ltr in word) {
+      ltr.innerHTML = letter;
+      correctGuesses += 1;
+    }
+
+    const wordLength = document.querySelectorAll('.letter-box').length
+
+    if (correctGuesses === wordLength) {
+      const allButton = document.querySelectorAll('#letter-buttons')
+      for (const button in allButton) {
+        disableLetterButton(button);
+        
+      }
+      // showing the element win
+      document.querySelector('#win').style.display = '';
+      //end the game
+      // document.querySelectorAll('#letter-buttons')
+    }
+
+    
+    
+  }
+  // if letter (L) in word (hello) -> add letter to approp. div?
 
 //
 // Called when `letter` is not in word.
@@ -72,7 +97,7 @@ const resetGame = () => {
 
 // This is like if __name__ == '__main__' in Python
 //
-(function startGame() {
+function startGame() {
   // For now, we'll hardcode the word that the user has to guess.
   const word = 'hello';
 
